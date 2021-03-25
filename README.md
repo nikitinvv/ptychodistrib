@@ -1,3 +1,11 @@
 # ptychodistrib
 
-Distributed ptychography with consesus equilibrium
+# Dependencies
+
+cupy, dxchange, swig, scikit-build
+
+# install
+python setup.py install
+
+# tests
+see tests
