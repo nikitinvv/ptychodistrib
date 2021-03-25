@@ -1,2 +1,3 @@
-# distrib_ptycho
+# ptychodistrib
+
 Distributed ptychography with consesus equilibrium
