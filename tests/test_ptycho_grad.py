@@ -32,12 +32,12 @@ if __name__ == "__main__":
     prb = cp.array(prb)
     scan = cp.array(scan)        
 
-    with ptychodistrib.SolverPtycho(nz, n, nscan, ndet, nprb) as pslv:
+    with ptychodistrib.SolverPtycho(nz, n, nscan, ndet, nprb, 1) as pslv:
         # data = ||FQpsi||^2
         data = cp.abs(pslv.fwd_ptycho(psi, prb, scan))**2
         # gradient solver
         psi = cp.ones_like(psi)
-        niter = 512
+        niter = 32
         psi = pslv.grad_ptycho(data, psi, prb, scan, None, -1, niter)        
     
     dxchange.write_tiff(cp.angle(psi).get(), 'rec/object_angle.tiff',overwrite=True)

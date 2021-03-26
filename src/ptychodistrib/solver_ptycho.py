@@ -1,7 +1,7 @@
 import cupy as cp
 import numpy as np
 from .ptychofft import ptychofft
-
+import signal
 
 class SolverPtycho(ptychofft):
     """Ptychography solver class.
@@ -29,6 +29,14 @@ class SolverPtycho(ptychofft):
             print(f'Number of nodes should be a multiple of nscan')
             exit()
         super().__init__(1, nz, n, nscan//nnodes, ndet, nprb, 1)  # ntheta==1, ngpu==1
+        signal.signal(signal.SIGINT, self.signal_handler)
+        signal.signal(signal.SIGTSTP, self.signal_handler)
+
+    def signal_handler(self, sig, frame):  # Free gpu memory after SIGINT, SIGSTSTP
+        self.tslv = []
+        self.pslv = []
+        self.dslv = []
+        sys.exit(0)
 
     def __enter__(self):
         """Return self at start of a with-block."""
