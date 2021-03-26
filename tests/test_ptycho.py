@@ -11,6 +11,7 @@ if __name__ == "__main__":
     ndet = 128 # detector size
     nprb = 128 # probe size
     nscan = 4554 # number of scan positions
+    nnodes = 1
 
     # Load object
     amp = dxchange.read_tiff('data/object_amp.tiff')
@@ -33,7 +34,7 @@ if __name__ == "__main__":
     prb = cp.array(prb)
     scan = cp.array(scan)        
 
-    with ptychodistrib.SolverPtycho(nz, n, nscan, ndet, nprb) as pslv:
+    with ptychodistrib.SolverPtycho(nz, n, nscan, ndet, nprb, 1) as pslv:
         # FQpsi
         data = pslv.fwd_ptycho(psi, prb, scan)
         # Q*F*data

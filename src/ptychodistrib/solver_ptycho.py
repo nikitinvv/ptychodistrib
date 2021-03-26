@@ -54,6 +54,7 @@ class SolverPtycho(ptychofft):
         """Adjoint ptychography transform (Q*F*)"""
         res = cp.zeros([self.nz, self.n], dtype='complex64')
         # convert to C-contiguous arrays if needed
+        data = data.copy()
         data = cp.ascontiguousarray(data)
         prb = cp.ascontiguousarray(prb)
         scan = cp.ascontiguousarray(scan)
